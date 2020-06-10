@@ -1,0 +1,38 @@
+{% extends 'employee_register/base.html' %} {% block content %}
+<h1>Employee List Form</h1>
+<hr>
+<table class="table">
+    <thead>
+        <tr>
+            <td>FullName</td>
+            <td>EmpCode</td>
+            <td>Position</td>
+            <td>
+                <a href={% url 'employee_insert' %}><i class="fas fa-plus"></i>Add New</a>
+            </td>
+        </tr>
+    </thead>
+    <tbody>
+        {% for employee in employee_list %}
+        <tr>
+            <td>{{ employee.fullname}}</td>
+            <td>{{ employee.emp_code}}</td>
+            <td>{{ employee.position}}</td>
+            <td>
+                <div class="row">
+                    <div class="col-md-4">
+                        <a href={% url 'employee_update' employee.id %} class="far fa-edit fa-lg"></a>
+                    </div>
+                    <div class="col-md-8">
+                        <form action="{% url 'employee_delete' employee.id %}" , method="post">
+                            {% csrf_token %}
+                            <button class="fas fa-trash float-right"></button>
+                        </form>
+                    </div>
+                </div>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

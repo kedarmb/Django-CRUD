@@ -1,0 +1,11 @@
+version: "3"
+
+services:
+  django:
+    build: .
+    command: bash -c "python manage.py makemigrations employee_register && python manage.py sqlmigrate 0001 && python manage.py runserver"
+    container_name: "django_crud"
+    voulmes:
+    - . :/django_crud
+    ports:
+    - "8000": "8000"
